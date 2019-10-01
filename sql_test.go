@@ -14,13 +14,15 @@ func TestFetchWallet(t *testing.T) {
 	wantCardNumber := "1001"
 	wantName := "Prare"
 
-	db, err := sql.Open("mysql", "root:MySQL123@tcp(127.0.0.1:3306)/GoTour")
+	db, err := sql.Open("mysql", "root:MySQL12@tcp(127.0.0.1:3306)/GoTour")
 	if err != nil {
-		t.Errorf("Fail: Cannot connect db")
+		t.Errorf("Fail: Cannot open DB " + err.Error())
 	}
+	defer db.Close()
+
 	wallet, err := sqlCode.FetchWallet(db, wantCardNumber)
 	if err != nil {
-		t.Errorf("Fail: FetchWallet has error")
+		t.Errorf("Fail: FetchWallet has error " + err.Error())
 	}
 
 	if wallet.CardNumber != wantCardNumber {
