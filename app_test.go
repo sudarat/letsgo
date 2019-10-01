@@ -7,10 +7,11 @@ import (
 	"./tour/http/controller/hello"
 )
 
-// Test is ...
-func Test(t *testing.T) {
+// Test Hello Api
+func TestHello(t *testing.T) {
+	fmt.Println("Test Hello() ")
 	result := hello.Hello()
-	fmt.Println("Result : ", result)
+	// fmt.Println("Result: ", result)
 	if result != "Hello" {
 		t.Errorf("Fail: got %v want %v", result, "Hello")
 	}

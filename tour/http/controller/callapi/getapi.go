@@ -2,7 +2,6 @@ package callapi
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -20,7 +19,7 @@ func GetIPAddressCtrl(c *routing.Context) error {
 	responseApp.Origin = strings.ReplaceAll(responseApp.Origin, " ", "")
 	ipList := strings.Split(responseApp.Origin, ",")
 
-	responseAPI := makeIPAddressList(ipList)
+	responseAPI := MakeIPAddressList(ipList)
 	response, err := json.Marshal(responseAPI)
 
 	if err != nil {
@@ -49,10 +48,10 @@ func getIPExternal() (ResponseApp, error) {
 	return responseApp, nil
 }
 
-func makeIPAddressList(ipList []string) []ResponseAPI {
+func MakeIPAddressList(ipList []string) []ResponseAPI {
 	responseAPI := []ResponseAPI{}
 	for i := 0; i < len(ipList); i++ {
-		fmt.Println(ipList[i])
+		// fmt.Println(ipList[i])
 		r := ResponseAPI{IPAddress: ipList[i]}
 		responseAPI = append(responseAPI, r)
 	}

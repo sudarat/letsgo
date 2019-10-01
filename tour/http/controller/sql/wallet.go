@@ -22,7 +22,7 @@ func GetWalletCtrl(c *routing.Context) error {
 	}
 	defer db.Close()
 
-	wallet, err := fetchWallet(db, string(cardNumber))
+	wallet, err := FetchWallet(db, string(cardNumber))
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
 			return fmt.Errorf("CardNumber not found")
@@ -41,7 +41,7 @@ func GetWalletCtrl(c *routing.Context) error {
 
 }
 
-func fetchWallet(db *sql.DB, cardNumber string) (Wallet, error) {
+func FetchWallet(db *sql.DB, cardNumber string) (Wallet, error) {
 	wallet := Wallet{}
 	err := db.QueryRow(strFetchWallet(), cardNumber).Scan(&wallet.CardNumber, &wallet.Name, &wallet.Age, &wallet.Money)
 	if err != nil {
